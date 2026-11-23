@@ -10,13 +10,13 @@ model = ChatOllama(
 parser = JsonOutputParser()
 
 template = PromptTemplate(
-    template= 'Give me the name, age and city of a fictional person \n {format_instruction}',
-    input_variables=[],
+    template= 'Give me 5 facts about {topics} \n {format_instruction}',
+    input_variables=["topics"],
     partial_variables={"format_instruction":parser.get_format_instructions() }
 )
 
 chain = template | model | parser
-result = chain.invoke({})
+result = chain.invoke({"topics": "black hole"})
 print(result)
 # prompt = template.format()
 # result = model.invoke(prompt)
